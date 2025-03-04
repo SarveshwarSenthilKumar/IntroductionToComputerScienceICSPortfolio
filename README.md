@@ -21,6 +21,7 @@
             <li>Task 6: Write a program that outputs a person's age given their birth year</li>
           </ul>
       <li>Rendering a Car using a scale variable as well as vertexes instead of a rectangle function</li>
+      <li>Rendering different stars using scale and position variables as well as connecting vertexes</li>
     </ul>
   </li>
 </ul>
