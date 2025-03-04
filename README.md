@@ -18,6 +18,7 @@
             <li>Task 5. Calculate the tempereature in Celsius given Fahrenheit (Inverse of Task 4)</li>
             <li>Task 6: Write a program that outputs a person's age given their birth year</li>
           </ul>
+      <li>Rendering a Car using a scale variable as well as vertexes instead of a rectangle function</li>
     </ul>
   </li>
 </ul>
