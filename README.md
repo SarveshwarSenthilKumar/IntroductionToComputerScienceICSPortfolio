@@ -22,6 +22,7 @@
           </ul>
       <li>Rendering a Car using a scale variable as well as vertexes instead of a rectangle function</li>
       <li>Rendering different stars using scale and position variables as well as connecting vertexes</li>
+      <li>Rendering the environment of the Car world by importing values to scale</li>
     </ul>
   </li>
 </ul>
