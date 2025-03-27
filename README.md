@@ -23,6 +23,11 @@
       <li>Rendering a Car using a scale variable as well as vertexes instead of a rectangle function</li>
       <li>Rendering different stars using scale and position variables as well as connecting vertexes</li>
       <li>Rendering the environment of the Car world by importing values to scale</li>
+      <li>Rendering a Nameplate using a sketch as an initial idea (Unit 2 Assessment)</li>
+          <ul>
+            <li>Screenshot of Final Product</li>
+            <li>Source Code for Nameplate</li>
+          </ul>
     </ul>
   </li>
 </ul>
