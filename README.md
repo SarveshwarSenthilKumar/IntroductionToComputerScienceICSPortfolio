@@ -16,8 +16,8 @@
             <li>Task 1. Calculate the area and perimeter of a rectangle</li>
             <li>Task 2. Practice using power function (pow) by writing different expressions</li>
             <li>Task 3. Practice using square root (sqrt) function by writing different expressions</li>
-            <li>Task 4. Calculate the tempereature in Fahrenheit given Celsius</li>
-            <li>Task 5. Calculate the tempereature in Celsius given Fahrenheit (Inverse of Task 4)</li>
+            <li>Task 4. Calculate the temperature in Fahrenheit given Celsius</li>
+            <li>Task 5. Calculate the temperate in Celsius given Fahrenheit (Inverse of Task 4)</li>
             <li>Task 6: Write a program that outputs a person's age given their birth year</li>
           </ul>
       <li>Rendering a Car using a scale variable as well as vertexes instead of a rectangle function</li>
@@ -28,6 +28,7 @@
             <li>Screenshot of Final Product</li>
             <li>Source Code for Nameplate</li>
           </ul>
+      <li>Using a IntDict(dictionary or hash map) in Processing to store grade values for letter grades and process number grades to letter grades</li>
     </ul>
   </li>
 </ul>
