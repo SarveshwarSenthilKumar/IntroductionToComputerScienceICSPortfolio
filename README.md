@@ -29,6 +29,7 @@
             <li>Source Code for Nameplate</li>
           </ul>
       <li>Using a IntDict(dictionary or hash map) in Processing to store grade values for letter grades and process number grades to letter grades</li>
+      <li>Collision detection algorithm to detect overlap of two circles using dist (distance function)</li>
     </ul>
   </li>
 </ul>
