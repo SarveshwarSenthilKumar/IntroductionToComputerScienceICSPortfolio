@@ -30,7 +30,7 @@
           </ul>
       <li>Using a IntDict(dictionary or hash map) in Processing to store grade values for letter grades and process number grades to letter grades</li>
       <li>Collision detection algorithm to detect overlap of two circles using dist (distance function)</li>
-      <li>Processing(Java): Utilized two car images to display two cars driving across a road, they turn back when other side is reached, if one car is faster than other, car slows down using collision detection. (Last lesson of Selection)</li>
+      <li>Processing(Java): Utilized two car images to display two cars driving across a road, they turn back when other side is reached, if one car is faster than other, car slows down using collision detection. (Last lesson of Selection) Added functionality for optional toggleable rain.</li>
     </ul>
   </li>
 </ul>
