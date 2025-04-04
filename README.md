@@ -1,7 +1,7 @@
 <h1>Sarveshwar Senthil Kumar: Introduction to Computer Science (ICS3U) Notes</h1>
 <text>This website is made to house all my projects and notes for the Grade 11 Introduction to Computer Science course.</text>
 <br><br>
-<text>This course is comprised mainly of programming basics using a customized version of Java on a "flexible software sketchbook" named Processing which is a beginner-friendly tuned down version of Java for beginner tasks as well as easy use in graphics rendering for intensive tasks such as game development. The software can be found at <a href="https://processing.org">https://processing.org</a>.</text>
+<text>This course is comprised mainly of programming basics using a customized version of Java on a "flexible software sketchbook" named Processing, which is a beginner-friendly, tuned-down version of Java for beginner tasks, as well as easy use in graphics rendering for intensive tasks such as game development. The software can be found at <a href="https://processing.org">https://processing.org</a>.</text>
 
 <h2>Table of Contents:</h2>
 <ul>
@@ -14,10 +14,10 @@
       <li>Practice Lab for Math Operations, Functions, and Programs
           <ul>
             <li>Task 1. Calculate the area and perimeter of a rectangle</li>
-            <li>Task 2. Practice using power function (pow) by writing different expressions</li>
-            <li>Task 3. Practice using square root (sqrt) function by writing different expressions</li>
+            <li>Task 2. Practice using the power function (pow) by writing different expressions</li>
+            <li>Task 3. Practice using the square root (sqrt) function by writing different expressions</li>
             <li>Task 4. Calculate the temperature in Fahrenheit given Celsius</li>
-            <li>Task 5. Calculate the temperate in Celsius given Fahrenheit (Inverse of Task 4)</li>
+            <li>Task 5. Calculate the temperature in Celsius given Fahrenheit (Inverse of Task 4)</li>
             <li>Task 6: Write a program that outputs a person's age given their birth year</li>
           </ul>
       <li>Rendering a Car using a scale variable as well as vertexes instead of a rectangle function</li>
@@ -28,9 +28,9 @@
             <li>Screenshot of Final Product</li>
             <li>Source Code for Nameplate</li>
           </ul>
-      <li>Using a IntDict(dictionary or hash map) in Processing to store grade values for letter grades and process number grades to letter grades</li>
-      <li>Collision detection algorithm to detect overlap of two circles using dist (distance function)</li>
-      <li>Processing(Java): Utilized two car images to display two cars driving across a road, they turn back when other side is reached, if one car is faster than other, car slows down using collision detection. (Last lesson of Selection) Added functionality for optional toggleable rain.</li>
+      <li>Using an IntDict (dictionary or hash map) in Processing to store grade values for letter grades and process number grades to letter grades</li>
+      <li>Collision detection algorithm to detect overlap of two circles using the dist (distance function)</li>
+      <li>Processing (Java): Utilized two car images to display two cars driving across a road; they turn back when the other side is reached. If one car is faster than the other, the car slows down using collision detection. (Last lesson of Selection) Added functionality for optional toggleable rain.</li>
       <li>Practice Lab for For Loops
           <ul>
             <li>Task 1. Drawing a grid pattern across the canvas</li>
