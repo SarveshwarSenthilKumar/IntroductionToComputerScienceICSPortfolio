@@ -37,6 +37,11 @@
             <li>Task 2. Drawing imitation raindrops across the screen</li>
             <li>Task 3. A bouncing ball</li>
           </ul>
+      <li>Practice Lab for While Loops
+          <ul>
+            <li>Task 1. Starry Night: Render more than 10 stars on the screen using a loop</li>
+            <li>Task 2. Drawing Imitation Raindrops Across the Screen with a While Loop</li>
+          </ul>
     </ul>
   </li>
 </ul>
