@@ -42,6 +42,7 @@
             <li>Task 1. Starry Night: Render more than 10 stars on the screen using a loop</li>
             <li>Task 2. Drawing Imitation Raindrops Across the Screen with a While Loop</li>
           </ul>
+      <li>Lab for Manipulating Strings in Java</li>
     </ul>
   </li>
 </ul>
