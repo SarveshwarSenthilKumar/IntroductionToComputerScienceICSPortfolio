@@ -4,161 +4,459 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>School Portfolio</title>
-</head>
-<body style="background-color: #d3d3d3; font-size: 1.5vw; font-family: Arial; color: #3b3b3b">
     <style>
-        .container {
-          position: relative;
-          text-align: center;
-          color: white;
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
         }
         
-        .bottom-left {
-          position: absolute;
-          bottom: 8px;
-          left: 16px;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            line-height: 1.6;
         }
         
-        .top-left {
-          position: absolute;
-          top: 8px;
-          left: 16px;
+        .hero-container {
+            position: relative;
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border-radius: 0 0 20px 20px;
         }
         
-        .top-right {
-          position: absolute;
-          top: 8px;
-          right: 16px;
+        .hero-container img {
+            width: 100%;
+            height: 60vh;
+            object-fit: cover;
+            filter: brightness(0.7);
+            transition: transform 0.5s ease;
         }
         
-        .bottom-right {
-          position: absolute;
-          bottom: 8px;
-          right: 16px;
+        .hero-container:hover img {
+            transform: scale(1.03);
         }
         
-        .centered {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
+        .hero-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4vw;
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            width: 90%;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -40%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        
+        .header-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 2rem 0;
+            color: var(--secondary-color);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .header-name::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        .email-link {
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .email-link:hover {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 3rem 0 2rem;
+            color: var(--secondary-color);
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 0.5rem auto;
+            border-radius: 2px;
+        }
+        
+        .mindmap-container {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .mindmap-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .mindmap-container img:hover {
+            transform: scale(1.02);
+        }
+        
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .project-section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 3rem 0 1.5rem;
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .project-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .project-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .project-description {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        .project-tasks {
+            margin-left: 1.5rem;
+            color: #666;
+        }
+        
+        .project-image {
+            display: block;
+            max-width: 80%;
+            margin: 1rem auto;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .btn-portfolio {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn-portfolio:hover {
+            background: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-portfolio i {
+            margin-right: 0.5rem;
+        }
+        
+        .btn-secondary-portfolio {
+            background: #6c757d;
+        }
+        
+        .footer {
+            background: var(--secondary-color);
+            color: var(--light-text);
+            padding: 3rem 0;
+            margin-top: 5rem;
+            text-align: center;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .header-name {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
         }
     </style>
-    <div class="container" id="start">
-        <img src="background.jpg" alt="Introduction to Computer Science" style="width:100%;">
-        <name class="centered" style="font-family: Calibri; font-size: 4vw; font-weight: bold; color: white;">ICS3UR: Introduction to Computer Science</name><br>
+</head>
+<body>
+    <div class="hero-container" id="start">
+        <img src="background.jpg" alt="Introduction to Computer Science">
+        <div class="hero-title">ICS3UR: Introduction to Computer Science</div>
     </div>
-    <h1 style="margin-left: 2%;">Sarveshwar Senthil Kumar - <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=sarveshwar313@gmail.com,997933@pdsb.net" style="text-decoration: none; color: #222222;">997933</a> </h1>
-    <h1 style="margin-left: 5%;">Mind Map: </h1>
-    <img src="Mindmap.png" style="width: 80%; margin-left: 10%; margin-bottom: 5%;">
-    <div style="margin-left: 5%; width: 80%;">
-      <h1 style="font-size: 3vw; color: black; font-weight: bold; ">Course Files:</h1>
-      <ul style="font-size: 2vw;">
-        <li>Processing(Java): Rendering a Smiley Face with Realistic Eyes and Brow
-          <ul>
-            <li><a href="smileyface.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-        <li>Processing(Java): Rendering a Circle to Follow the Cursor
-          <ul>
-            <li><a href="cursorfollow.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-        <li>Processing(Java): Rendering a Car that Can Be Scaled by Modifying the Width and Height of a Screen, Added Background Image for Car
-          <ul>
-            <li><a href="scalingcar.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-        <li>Processing(Java): Practice Lab for Math Operations, Functions, and Programs
-          <ul>
-            <li>Task 1. Calculate the area and perimeter of a rectangle</li>
-            <li>Task 2. Practice using the power function (pow) by writing different expressions</li>
-            <li>Task 3. Practice using the square root (sqrt) function by writing different expressions</li>
-            <li>Task 4. Calculate the temperature in Fahrenheit given Celsius</li>
-            <li>Task 5. Calculate the temperature in Celsius given Fahrenheit (Inverse of Task 4)</li>
-            <li>Task 6: Write a program that outputs a person's age given their birth year</li>
-          </ul>
-          <ul>
-            <li><a href="mathoperations.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-        <li>Processing(Java): Rendering a Car Using a Scale Variable as Well as Vertexes Instead of a Rectangle Function
-          <ul>
-            <li><a href="scaleVertexCar.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-        <li>Processing(Java): Rendering Different Stars Using Scale and Position Variables as Well as Connecting Vertexes
-          <ul>
-            <li><a href="stars.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-        <li>Processing(Java): Rendering the Environment of the Car World by Importing Values to Scale
-          <ul>
-            <li><a href="createEnvironmentCar.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-        <li>Processing(Java): Rendering a Nameplate Using a Sketch as an Initial Idea (Unit 2 Assessment)<br>
-          Screenshot of Final Result: <img src="nameplate.PNG" style="width: 40%; margin-left: 30%;">
-          <ul>
-            <li><a href="createEnvironmentCar.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-        <li>Processing(Java): Using an IntDict (Dictionary or Hash Map) in Processing to Store Grade Values for Letter Grades and Process Number Grades to Letter Grades
-          <ul>
-            <li><a href="grades.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-        <li>Processing(Java): Collision Detection Algorithm to Detect Overlap of Two Circles Using the dist (Distance Function)
-          <ul>
-            <li><a href="circlecollisiondetection.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-        <li>Processing(Java): Utilized Two Car Images to Display Two Cars Driving Across a Road; They Turn Back When the Other Side is Reached, If One Car is Faster Than the Other, the Car Slows Down Using Collision Detection. (Last Lesson of Selection)
-          <ul>
-            <li><a href="movingCar.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-            <li><a href="movingCarWithRain.pde"><button type="button" class="btn btn-primary">Code File for Car with Optional Rain</button></a></li>
-          </ul>
-        </li>
-
-        <li>Processing(Java): Practice Lab for For Loops
-          <ul>
-            <li>Task 1. Drawing a Grid Pattern Across the Canvas</li>
-            <li>Task 2. Drawing Imitation Raindrops Across the Screen</li>
-            <li>Task 3. A Bouncing Ball</li>
-          </ul>
-          <ul>
-            <li><a href="forlooplabs.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-        <li>Processing(Java): Practice Lab for While Loops
-          <ul>
-            <li>Task 1. Starry Night: Render more than 10 stars on the screen using a loop</li>
-            <li>Task 2. Drawing Imitation Raindrops Across the Screen with a While Loop</li>
-          </ul>
-          <ul>
-            <li><a href="whilelooplabs.pde"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-        <li>Java: Practice Lab for String Manipulation
-          <ul>
-            <li><a href="Strings.java"><button type="button" class="btn btn-primary">Code File</button></a></li>
-          </ul>
-        </li>
-
-      </ul>
+    
+    <div class="container">
+        <h1 class="header-name">
+            Sarveshwar Senthil Kumar - 
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=sarveshwar313@gmail.com,997933@pdsb.net" class="email-link">
+                <i class="fas fa-envelope"></i> 997933
+            </a>
+        </h1>
+        
+        <h2 class="section-title">Mind Map</h2>
+        <div class="mindmap-container">
+            <img src="Mindmap.png" alt="Course Mind Map">
+        </div>
+        
+        <div class="projects-container">
+            <h2 class="project-section-title">Course Projects</h2>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Rendering a Smiley Face with Realistic Eyes and Brow</h3>
+                <a href="smileyface.pde" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Rendering a Circle to Follow the Cursor</h3>
+                <a href="cursorfollow.pde" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Rendering a Car that Can Be Scaled by Modifying the Width and Height of a Screen, Added Background Image for Car</h3>
+                <a href="scalingcar.pde" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Practice Lab for Math Operations, Functions, and Programs</h3>
+                <div class="project-description">
+                    <p>Tasks completed in this project:</p>
+                    <ul class="project-tasks">
+                        <li>Task 1. Calculate the area and perimeter of a rectangle</li>
+                        <li>Task 2. Practice using the power function (pow) by writing different expressions</li>
+                        <li>Task 3. Practice using the square root (sqrt) function by writing different expressions</li>
+                        <li>Task 4. Calculate the temperature in Fahrenheit given Celsius</li>
+                        <li>Task 5. Calculate the temperature in Celsius given Fahrenheit (Inverse of Task 4)</li>
+                        <li>Task 6: Write a program that outputs a person's age given their birth year</li>
+                    </ul>
+                </div>
+                <a href="mathoperations.pde" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Rendering a Car Using a Scale Variable as Well as Vertexes Instead of a Rectangle Function</h3>
+                <a href="scaleVertexCar.pde" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Rendering Different Stars Using Scale and Position Variables as Well as Connecting Vertexes</h3>
+                <a href="stars.pde" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Rendering the Environment of the Car World by Importing Values to Scale</h3>
+                <a href="createEnvironmentCar.pde" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Rendering a Nameplate Using a Sketch as an Initial Idea (Unit 2 Assessment)</h3>
+                <img src="nameplate.PNG" alt="Nameplate Project" class="project-image">
+                <a href="createEnvironmentCar.pde" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Using an IntDict (Dictionary or Hash Map) in Processing to Store Grade Values for Letter Grades and Process Number Grades to Letter Grades</h3>
+                <a href="grades.pde" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Collision Detection Algorithm to Detect Overlap of Two Circles Using the dist (Distance Function)</h3>
+                <a href="circlecollisiondetection.pde" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Utilized Two Car Images to Display Two Cars Driving Across a Road; They Turn Back When the Other Side is Reached, If One Car is Faster Than the Other, the Car Slows Down Using Collision Detection. (Last Lesson of Selection)</h3>
+                <div class="project-links">
+                    <a href="movingCar.pde" class="btn btn-portfolio">
+                        <i class="fas fa-code"></i> Code File
+                    </a>
+                    <a href="movingCarWithRain.pde" class="btn btn-secondary btn-portfolio">
+                        <i class="fas fa-cloud-rain"></i> Code File for Car with Optional Rain
+                    </a>
+                </div>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Practice Lab for For Loops</h3>
+                <div class="project-description">
+                    <p>Tasks completed in this project:</p>
+                    <ul class="project-tasks">
+                        <li>Task 1. Drawing a Grid Pattern Across the Canvas</li>
+                        <li>Task 2. Drawing Imitation Raindrops Across the Screen</li>
+                        <li>Task 3. A Bouncing Ball</li>
+                    </ul>
+                </div>
+                <a href="forlooplabs.pde" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Processing(Java): Practice Lab for While Loops</h3>
+                <div class="project-description">
+                    <p>Tasks completed in this project:</p>
+                    <ul class="project-tasks">
+                        <li>Task 1. Starry Night: Render more than 10 stars on the screen using a loop</li>
+                        <li>Task 2. Drawing Imitation Raindrops Across the Screen with a While Loop</li>
+                    </ul>
+                </div>
+                <a href="whilelooplabs.pde" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+            
+            <div class="project-item">
+                <h3 class="project-title">Java: Practice Lab for String Manipulation</h3>
+                <a href="Strings.java" class="btn btn-portfolio">
+                    <i class="fas fa-code"></i> Code File
+                </a>
+            </div>
+        </div>
     </div>
+    
+    <div class="footer">
+        <p>© 2025 Sarveshwar Senthil Kumar - ICS3UR Portfolio</p>
+    </div>
+    
+    <a href="#start" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <script>
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
