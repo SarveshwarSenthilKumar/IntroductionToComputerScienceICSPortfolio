@@ -45,6 +45,7 @@
       <li>Practice Lab for Manipulating Strings in Java</li>
       <li>Practice Lab for String Manipulation with additional input via Scanner</li>
       <li>Practice Lab for Reading and Writing to Files using BufferedReader and PrintWriter respectively</li>
+      <li>Practice Lab for Reading and Writing to Files, replace every other character with a +</li>
     </ul>
   </li>
 </ul>
