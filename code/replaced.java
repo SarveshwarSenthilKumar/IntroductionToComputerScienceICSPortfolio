@@ -1,4 +1,4 @@
-package code;
+
 import java.io.*;
 
 public class replaced
