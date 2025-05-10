@@ -5,6 +5,12 @@ public class RockPaperScissors
 {
     public static void main(String[] args)
     {
+
+        String[] choices = {"rock", "paper", "scissors"};
+        String[] rounds = new String[50];
+
+        int round = 0;
+
         while (true){
             Scanner input = new Scanner(System.in);
             
@@ -41,6 +47,12 @@ public class RockPaperScissors
                 System.out.println("Thanks for playing!");
                 break;
             }
+
+            rounds[round] = "Round " + (round + 1) + ": You chose " + human + ", Computer chose " + robot;
+            round++;
+        }
+        for (int i = 0; i < round; i++){
+            System.out.println(rounds[i]);
         }
     }
     
