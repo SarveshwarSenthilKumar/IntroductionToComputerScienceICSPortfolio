@@ -48,6 +48,7 @@
       <li>Practice Lab for Reading and Writing to Files, replace every other character with a +</li>
       <li>Practice Lab for Developing a Rock Paper Scissors game</li>
       <li>Practice Lab for Arrays</li>
+      <li>Reviewing Processing Basics: Built a Fruit Clicker Game with Dynamic Score Counter and Rounds</li>
     </ul>
   </li>
 </ul>
