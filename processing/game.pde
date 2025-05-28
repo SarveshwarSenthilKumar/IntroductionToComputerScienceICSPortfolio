@@ -4,7 +4,7 @@ int chosenImage = 0;
 PImage character, bg, object, heart;
 String currentStage = "start";
 int characterX, characterY;
-int[][] objects = new int[100][5];
+int[][] objects = new int[40][5];
 PImage[] images = new PImage[20];
 int characterLives = 4;
 int score = 0;
@@ -48,9 +48,10 @@ void setup(){
 
 void draw(){
   if (currentMode == "mouse"){
-    characterX = mouseX;
+    characterX = mouseX-50;
   }
   if (currentStage == "game"){
+   
     bg = loadImage("background2.jpg");
     bg.resize(1400,800);
     image(bg, 0, 0);
@@ -74,8 +75,10 @@ void draw(){
         boolean hit = checkCollision(objects[i][0], objects[i][1], 100, 100, characterX, characterY, 100);
         
         if (hit){
-          characterLives+=objects[i][4];
-          objects[i][2] = 0;
+          if (characterLives<10||objects[i][4]==-1){
+            characterLives+=objects[i][4];
+            objects[i][2] = 0;
+          }
         }
         else if (objects[i][1]>=height-100){
           score+=objects[i][2]*3*objects[i][4]*-1;
@@ -84,6 +87,7 @@ void draw(){
       }
       
       if (characterLives<=0){
+        displayEndMenu();
         currentStage = "gameover";
       }
 
@@ -97,6 +101,25 @@ void draw(){
 
 void mouseClicked(){
   if (currentStage == "start"){
+    if (mouseX>=width/2-200&&mouseX<=width/2+400){
+      if (mouseY>=height/2+250&&mouseY<=height/2+350){
+        currentStage = "game";
+        createObject();
+      }
+      else{
+        currentMode = "mouse";
+      }
+    }
+    else{
+      currentMode = "mouse";
+    }
+  }
+  else if (currentStage == "gameover"){
+    characterX = width/2;
+    characterY = height-150;
+    createObject();
+    characterLives = 4;
+    score = 0;
     if (mouseX>=width/2-200&&mouseX<=width/2+400){
       if (mouseY>=height/2+250&&mouseY<=height/2+350){
         currentStage = "game";
@@ -133,8 +156,8 @@ void keyPressed(){
 
 boolean checkCollision(int x, int y, int height1, int width1, int characterX, int characterY, int charWidth){
   
-  if (characterX+charWidth >= x-15 && characterX+charWidth <= x+width1+15){
-    if (characterY <= height1+y){
+  if (characterX+charWidth-10 >= x && characterX <= x+width1-10){
+    if (characterY+20 <= height1+y){
       return true;
     }
   }
@@ -161,6 +184,37 @@ void createObject(){
       objects[i][4] = 1;
     }
   }
+}
+
+void displayEndMenu() {
+  bg = loadImage("background.jpg");
+  bg.resize(1400,800);
+  image(bg, 0, 0);
+  text = "The Sky is Falling! - Sarveshwar";
+  textSize(50);
+  fill(255);
+  textAlign(CENTER, CENTER);
+  text(text, width/2, 100);
+  
+  text = "Your score this round is " + score + "! Better Luck Next Time!";
+  textSize(30);
+  fill(0);
+  textAlign(CENTER, CENTER);
+  text(text, width/2, 160);
+  
+  character = loadImage("jetpackguy.png");
+  character.resize(400, 400);
+  image(character, width/2-200, height/2-200);
+  character.resize(100,100);
+  
+  fill(255, 165, 0);
+  rect(width/2-200, height/2+250, 400, 100);
+  
+  text = "Play Again!";
+  textSize(40);
+  fill(0);
+  textAlign(CENTER, CENTER);
+  text(text, width/2, height/2+300);
 }
 
 void displayStartMenu(){
