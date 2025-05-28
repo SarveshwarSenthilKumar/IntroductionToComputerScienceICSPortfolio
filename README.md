@@ -49,6 +49,7 @@
       <li>Practice Lab for Developing a Rock Paper Scissors game</li>
       <li>Practice Lab for Arrays</li>
       <li>Reviewing Processing Basics: Built a Fruit Clicker Game with Dynamic Score Counter and Rounds</li>
+      <li>Culminating Prep; Avoid the falling objects game</li>
     </ul>
   </li>
 </ul>
