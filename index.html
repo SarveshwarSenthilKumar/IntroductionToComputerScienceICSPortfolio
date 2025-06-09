@@ -504,6 +504,270 @@
                 </div>
             </div>
             
+            <!-- Add this section after the projects-container div and before the footer -->
+            <div class="projects-container">
+                <h2 class="project-section-title">Culminating Project Progress</h2>
+                
+                <div class="accordion" id="culminatingAccordion">
+                    <!-- Day 1 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Day 1 - June 9th, 2025
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#culminatingAccordion">
+                            <div class="accordion-body">
+                                <div class="project-item">
+                                    <h4 class="project-title">Journal Entry</h4>
+                                    <div class="project-description">
+                                        <p>Today was the day I started to work on the actual codebase for the game.</p>
+                                        <ul class="project-tasks">
+                                            <li>Worked on the GUI for the main start menu</li>
+                                            <li>Figured out the logistics to toggle music in the app</li>
+                                            <li>Still working on the actual click interpretation for the buttons</li>
+                                        </ul>
+                                        <p><strong>Thoughts:</strong> I believe that today was a productive day however, it was quite tedious working with the graphical rendering and menial changing the different pixel values to make everything look better, I would like to move on to the true backend of the game tomorrow. I hope the music works each time, I watched a tutorial to figure out how to toggle the music.</p>
+                                    </div>
+                                    <h4 class="project-title">Code</h4>
+                                    <pre><code class="language-java">import ddf.minim.*;
+
+            AudioPlayer player;
+            Minim minim;
+
+            String text;
+            String musicStatus = "ON";
+            String currentStage = "start";
+
+            void setup(){
+            // Creating the basic canvas
+            size(1000, 1000);
+            background(#e6dfd0);
+            
+            // Setting up the music player
+            minim = new Minim(this);
+            player = minim.loadFile("music.mp3");
+            player.loop();
+            
+            // Creating the basic title page
+            setupTitlePage();
+            }
+
+            void draw(){
+            if (currentStage == "start"){
+                // Rendering the music settings dynamically
+                fill(#cdbea1);
+                rect(150, 400, width-300, 100);
+                textSize(80);
+                fill(0);
+                text("MUSIC: " + musicStatus , (150+width-300)/2, 450);
+                fill(#d6c9b1);
+                rect(150+width-400, 400, 100, 100);
+                fill(0);
+                if (musicStatus == "ON"){
+                fill(0);
+                textSize(200);
+                text("-" , 800, 435);
+                }
+                else if (musicStatus == "OFF"){
+                fill(0);
+                textSize(170);
+                text("+" , 800, 445);
+                }
+            }
+            }
+
+            void keyPressed(){
+            if (currentStage == "start"){
+                // Checks for mute and unmute key presses and plays music accordingly
+                if (key == 'm' || key == 'M'){
+                if (musicStatus == "ON"){
+                    musicStatus = "OFF";
+                    player.close();
+                    minim.stop();
+                }
+                else if (musicStatus == "OFF"){
+                    musicStatus = "ON";
+                    minim = new Minim(this);
+                    player = minim.loadFile("music.mp3");
+                    player.loop();
+                }
+                }
+            }
+            }
+
+            void setupTitlePage(){
+            // Set up basic title page
+            textSize(150);
+            fill(0);
+            textAlign(CENTER, CENTER);
+            text("2048:", width/2, 100);
+            textSize(160);
+            text("POWER", width/2, 250);
+            currentStage = "start";
+            
+            // Rendering the Toggle Map Settings button
+            fill(#cdbea1);
+            rect(150, 520, width-300, 100);
+            textSize(60);
+            fill(0);
+            text("Toggle Map Settings" , (width)/2, 570);
+            
+            // Rendering the Start Game button
+            fill(#cdbea1);
+            rect(150, 670, width-300, 100);
+            textSize(60);
+            fill(0);
+            text("START GAME" , (width)/2, 720);
+
+            // Printed instructions for menu selection
+            textSize(50);
+            fill(0);
+            textAlign(CENTER, CENTER);
+            text("Press M to mute/unmute", width/2, 850);
+            textSize(50);
+            text("Use mouse to select menu", width/2, 900);
+            }</code></pre>
+                                    <a href="code/culminating_day1.pde" class="btn btn-portfolio">
+                                        <i class="fas fa-code"></i> Download Code File
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 2 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Day 2 - June 10th, 2025
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#culminatingAccordion">
+                            <div class="accordion-body">
+                                <div class="project-item">
+                                    <h4 class="project-title">Journal Entry</h4>
+                                    <div class="project-description">
+                                        <p>Coming soon...</p>
+                                    </div>
+                                    <h4 class="project-title">Code</h4>
+                                    <div class="project-description">
+                                        <p>Will be added as progress continues.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 3 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Day 3 - June 11th, 2025
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#culminatingAccordion">
+                            <div class="accordion-body">
+                                <div class="project-item">
+                                    <h4 class="project-title">Journal Entry</h4>
+                                    <div class="project-description">
+                                        <p>Coming soon...</p>
+                                    </div>
+                                    <h4 class="project-title">Code</h4>
+                                    <div class="project-description">
+                                        <p>Will be added as progress continues.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 4 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Day 4 - June 12th, 2025
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#culminatingAccordion">
+                            <div class="accordion-body">
+                                <div class="project-item">
+                                    <h4 class="project-title">Journal Entry</h4>
+                                    <div class="project-description">
+                                        <p>Coming soon...</p>
+                                    </div>
+                                    <h4 class="project-title">Code</h4>
+                                    <div class="project-description">
+                                        <p>Will be added as progress continues.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 5 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                Day 5 - June 13th, 2025
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#culminatingAccordion">
+                            <div class="accordion-body">
+                                <div class="project-item">
+                                    <h4 class="project-title">Journal Entry</h4>
+                                    <div class="project-description">
+                                        <p>Coming soon...</p>
+                                    </div>
+                                    <h4 class="project-title">Code</h4>
+                                    <div class="project-description">
+                                        <p>Will be added as progress continues.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                /* Add these styles to your existing CSS */
+                .accordion-button {
+                    font-weight: 600;
+                    background-color: var(--light-bg);
+                    color: var(--secondary-color);
+                }
+                
+                .accordion-button:not(.collapsed) {
+                    background-color: var(--primary-color);
+                    color: white;
+                }
+                
+                .accordion-button:focus {
+                    box-shadow: none;
+                    border-color: rgba(0,0,0,.125);
+                }
+                
+                .accordion-item {
+                    margin-bottom: 1rem;
+                    border: 1px solid rgba(0,0,0,.125);
+                    border-radius: 0.25rem;
+                }
+                
+                pre {
+                    background-color: #f8f9fa;
+                    padding: 1rem;
+                    border-radius: 0.5rem;
+                    overflow-x: auto;
+                    margin: 1rem 0;
+                }
+                
+                code {
+                    font-family: 'Courier New', Courier, monospace;
+                    font-size: 0.9rem;
+                }
+            </style>
+
         </div>
     </div>
     
