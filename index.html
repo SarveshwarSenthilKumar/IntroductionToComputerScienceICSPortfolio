@@ -3365,12 +3365,785 @@
                                 <div class="project-item">
                                     <h4 class="project-title">Journal Entry</h4>
                                     <div class="project-description">
-                                        <p>Coming soon...</p>
+                                        <p>Today was the final development day where I completed all major features:</p>
+                                        <ul class="project-tasks">
+                                            <li>Added score-based power-up system</li>
+                                            <li>Implemented special Lock tiles that stay in place for 8 moves</li>
+                                            <li>Created Bomb tiles that destroy surrounding tiles when matched</li>
+                                            <li>Built the view scores page to show previous game results</li>
+                                            <li>Added 9 additional music tracks across different genres</li>
+                                            <li>Completed the view instructions page with full game documentation</li>
+                                            <li>Added keyboard shortcuts (1-9) for quick music selection</li>
+                                        </ul>
+                                        <p><strong>Thoughts:</strong> This was by far the most productive day as today was when I completed all core game features. While all required features have been implemented, I still have ideas for additional enhancements I'd like to add throughout the summer. The remaining work is primarily code documentation and comments.</p>
                                     </div>
                                     <h4 class="project-title">Code</h4>
-                                    <div class="project-description">
-                                        <p>Will be added as progress continues.</p>
-                                    </div>
+                                    <pre><code class="language-java">import ddf.minim.*;
+
+                    AudioPlayer player;
+                    Minim minim;
+
+                    PImage lightning;
+                    PImage undo;
+                    PImage hammer;
+                    PImage lock;
+                    PImage bomb;
+
+                    String text;
+                    String musicStatus = "ON";
+                    String currentStage = "start";
+                    String theme = "desert";
+                    int grid = 4;
+
+                    String warning = "Welcome to the Game! Make your first move!";
+
+                    int currentScore = 0;
+                    int currentMoves = 0;
+
+                    boolean foursOnly = false;
+                    int fours = 0;
+
+                    boolean doubleMode = false;
+                    int doubles = 0;
+
+                    String currentMusic = "basiclofi";
+
+                    int[][] currentGrid;
+                    int[][] lastGrid;
+
+                    color[] desertColors = {#e6dfd0, #ded4c0, #d6c9b1, #cdbea1, #c5b391, #bda981, #b49e72};
+                    color[] spaceColors = {#cccccc, #c0c0c0, #b3b3b3, #a6a6a6, #999999, #8d8d8d, #808080};
+                    color[] forestColors = {#99c199, #80b280, #66a266, #4d934d, #338333, #197419, #006400};
+
+                    color[] colors = desertColors;
+
+                    void setup() {
+                    // Creating the basic canvas
+                    size(1000, 1000);
+                    
+                    // Holding lightning powerup image
+                    lightning = loadImage("lightningbolt.png");
+                    lightning.resize(80,80);
+                    
+                    undo = loadImage("undoicon.png");
+                    undo.resize(70,70);
+                    
+                    hammer = loadImage("hammer.png");
+                    hammer.resize(70,70);
+                    
+                    lock = loadImage("lock.png");
+                    lock.resize(50,50);
+                    
+                    bomb = loadImage("bomb.png");
+                    bomb.resize(50,50);
+
+                    // Setting up the music player
+                    minim = new Minim(this);
+                    player = minim.loadFile("music.mp3");
+                    player.loop();
+
+                    // Creating the basic title page
+                    setupTitlePage();
+                    }
+
+                    void draw() {
+                    if (currentStage == "start") {
+                        // Rendering the music settings dynamically
+                        fill(colors[3]);
+                        rect(150, 400, width-300, 100);
+                        textSize(80);
+                        fill(0);
+                        text("MUSIC: " + musicStatus, (150+width-300)/2, 450);
+                        fill(colors[2]);
+                        rect(150+width-400, 400, 100, 100);
+                        fill(0);
+                        if (musicStatus == "ON") {
+                        fill(0);
+                        textSize(200);
+                        text("-", 800, 435);
+                        } else if (musicStatus == "OFF") {
+                        fill(0);
+                        textSize(170);
+                        text("+", 800, 445);
+                        }
+                    } 
+                    else if (currentStage == "selectingmaps") {
+                        setupMapsPage();
+                    }
+                    else if (currentStage == "adjustinggrid") {
+                        setupGridAdjust();
+                    }
+                    else if (currentStage == "playinggame") {
+                        playGame();
+                    }
+                    }
+
+                    void keyPressed() {
+                    // Checks for mute and unmute key presses and plays music accordingly
+                    if (key == 'm' || key == 'M') {
+                        toggleMusic();
+                    }
+                    if (key == 't' || key == 'T'){
+                        if (currentMusic == "basiclofi"){
+                            toggleMusic();
+                            musicStatus = "ON";
+                            currentMusic = "baby";
+                            minim = new Minim(this);
+                            player = minim.loadFile("baby.mp3");
+                            player.loop();
+                        }
+                        else if (currentMusic == "baby"){
+                            toggleMusic();
+                            musicStatus = "ON";
+                            currentMusic = "espresso";
+                            minim = new Minim(this);
+                            player = minim.loadFile("espresso.mp3");
+                            player.loop();
+                        }
+                        else if (currentMusic == "espresso"){
+                            toggleMusic();
+                            musicStatus = "ON";
+                            currentMusic = "party";
+                            minim = new Minim(this);
+                            player = minim.loadFile("party.mp3");
+                            player.loop();
+                        }
+                        else if (currentMusic == "party"){
+                            toggleMusic();
+                            musicStatus = "ON";
+                            currentMusic = "wmyb";
+                            minim = new Minim(this);
+                            player = minim.loadFile("wmyb.mp3");
+                            player.loop();
+                        }
+                        else if (currentMusic == "wmyb"){
+                            toggleMusic();
+                            musicStatus = "ON";
+                            currentMusic = "shakeitoff";
+                            minim = new Minim(this);
+                            player = minim.loadFile("shakeitoff.mp3");
+                            player.loop();
+                        }
+                        else if (currentMusic == "shakeitoff"){
+                            toggleMusic();
+                            musicStatus = "ON";
+                            currentMusic = "wonderwall";
+                            minim = new Minim(this);
+                            player = minim.loadFile("wonderwall.mp3");
+                            player.loop();
+                        }
+                        else if (currentMusic == "wonderwall"){
+                            toggleMusic();
+                            musicStatus = "ON";
+                            currentMusic = "carelesswhisper";
+                            minim = new Minim(this);
+                            player = minim.loadFile("carelesswhisper.mp3");
+                            player.loop();
+                        }
+                        else if (currentMusic == "carelesswhisper"){
+                            toggleMusic();
+                            musicStatus = "ON";
+                            currentMusic = "apt";
+                            minim = new Minim(this);
+                            player = minim.loadFile("apt.mp3");
+                            player.loop();
+                        }
+                        else if (currentMusic == "apt"){
+                            toggleMusic();
+                            musicStatus = "ON";
+                            currentMusic = "fein";
+                            minim = new Minim(this);
+                            player = minim.loadFile("fein.mp3");
+                            player.loop();
+                        }
+                        else if (currentMusic == "fein"){
+                            toggleMusic();
+                            musicStatus = "ON";
+                            currentMusic = "basiclofi";
+                            minim = new Minim(this);
+                            player = minim.loadFile("music.mp3");
+                            player.loop();
+                        }
+                    }
+                    
+                    else if (currentStage == "adjustinggrid"){
+                        if (keyCode == UP){
+                        if (grid < 10){
+                            grid+=1;
+                        }
+                        }
+                        else if (keyCode == DOWN){
+                        if (grid > 4){
+                            grid-=1;
+                        }
+                        }
+                    }
+                    
+                    else if (currentStage == "playinggame"){
+                        if (keyCode == UP){
+                        warning = "";
+                        int[][] tempGrid = shiftGrid(currentGrid, "up");
+                        int changes = 0;
+                        boolean trigger = true;
+                        
+                        for (int row=0; row<grid; row++){
+                            for (int column=0; column<grid; column++){
+                            if (tempGrid[row][column]!=currentGrid[row][column]){
+                                changes+=1;
+                            }
+                            if (currentGrid[row][column]==0 || tempGrid[row][column]==0){
+                                trigger = false;
+                            }
+                            }
+                        }
+                        
+                        if (trigger && checkPossibleCollisions(currentGrid) == 0){
+                            currentStage = "finishedgame";
+                            setupFinishedGamePage();
+                        }
+                        
+                        if (changes!=0 || !trigger){
+                            lastGrid = currentGrid;
+                            currentGrid = shiftGrid(currentGrid, "up");
+                            
+                            int changes2 = 0;
+                            do {
+                            changes2 = 0;
+                            tempGrid = shiftGrid(currentGrid, "up");
+                            for (int row=0; row<grid; row++){
+                                for (int column=0; column<grid; column++){
+                                if (tempGrid[row][column]!=currentGrid[row][column]){
+                                    changes2+=1;
+                                }
+                                }
+                            }
+                            currentGrid = tempGrid;
+                            } while (changes2 != 0);
+                            
+                            if (changes > 0){
+                            currentMoves += 1;
+                            }
+                            
+                            int[][] freeSpots = new int[grid*grid][2];
+                            int totalFree = 0;
+                            for (int rows = 0; rows < grid; rows++){
+                                for (int columns = 0; columns < grid; columns++){
+                                if (currentGrid[rows][columns] == 0){
+                                    freeSpots[totalFree][0] = rows;
+                                    freeSpots[totalFree][1] = columns;
+                                    totalFree += 1;
+                                }
+                                if (changes>0){
+                                    if (currentGrid[rows][columns]%2!=0){
+                                    if (currentGrid[rows][columns] == 17){
+                                        currentGrid[rows][columns] = 0;
+                                    }
+                                    else{
+                                        currentGrid[rows][columns]+=2;
+                                    }
+                                    }
+                                }
+                                }
+                            }
+                            
+                            int randomAddition = (int)(Math.random()*totalFree);
+                            int randomNum = (int)(Math.random()*101);
+                            
+                            if (totalFree != 0 && changes != 0){
+                                if (doubles == 10){
+                                doubleMode = false;
+                                doubles = 0;
+                                }
+                                if (doubleMode){
+                                doubles+=1;
+                                }
+                                
+                                if (fours == 10){
+                                foursOnly = false;
+                                fours = 0;
+                                }
+                                if (foursOnly){
+                                currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 4;
+                                fours+=1;
+                                }
+                                else if (totalFree >= 4){
+                                if (randomNum >= 85 && randomNum <= 92){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 4;
+                                }
+                                else if (randomNum >= 93 && randomNum <= 97){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 1;
+                                }
+                                else if (randomNum >= 98){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 6;
+                                    while (currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] != 0){
+                                    randomAddition = (int)(Math.random()*totalFree);
+                                    }
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 6;
+                                }
+                                else{
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 2;
+                                }
+                                }
+                                else{
+                                if (randomNum >= 85 && randomNum <= 92){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 4;
+                                }
+                                else if (randomNum >= 93 && randomNum <= 97){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 1;
+                                }
+                                else{
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 2;
+                                }
+                                }
+                            }
+                            }
+                            }
+                        else if (keyCode == DOWN){
+                        warning = "";
+                        int[][] tempGrid = shiftGrid(currentGrid, "down");
+                        int changes = 0;
+                        boolean trigger = true;
+                        
+                        for (int row=0; row<grid; row++){
+                            for (int column=0; column<grid; column++){
+                            if (tempGrid[row][column]!=currentGrid[row][column]){
+                                changes+=1;
+                            }
+                            if (currentGrid[row][column]==0 || tempGrid[row][column]==0){
+                                trigger = false;
+                            }
+                            }
+                        }
+                        
+                        if (trigger && checkPossibleCollisions(currentGrid) == 0){
+                            currentStage = "finishedgame";
+                            setupFinishedGamePage();
+                        }
+                            
+                        if (changes!=0 || !trigger){
+                            lastGrid = currentGrid;
+                            currentGrid = shiftGrid(currentGrid, "down");
+                            
+                            int changes2 = 0;
+                            do {
+                            changes2 = 0;
+                            tempGrid = shiftGrid(currentGrid, "down");
+                            for (int row=0; row<grid; row++){
+                                for (int column=0; column<grid; column++){
+                                if (tempGrid[row][column]!=currentGrid[row][column]){
+                                    changes2+=1;
+                                }
+                                }
+                            }
+                            currentGrid = tempGrid;
+                            } while (changes2 != 0);
+                            
+                            if (changes > 0){
+                            currentMoves += 1;
+                            }
+                            
+                            int[][] freeSpots = new int[grid*grid][2];
+                            int totalFree = 0;
+                            for (int rows = 0; rows < grid; rows++){
+                                for (int columns = 0; columns < grid; columns++){
+                                if (currentGrid[rows][columns] == 0){
+                                    freeSpots[totalFree][0] = rows;
+                                    freeSpots[totalFree][1] = columns;
+                                    totalFree += 1;
+                                }
+                                if (changes>0){
+                                    if (currentGrid[rows][columns]%2!=0){
+                                    if (currentGrid[rows][columns] == 17){
+                                        currentGrid[rows][columns] = 0;
+                                    }
+                                    else{
+                                        currentGrid[rows][columns]+=2;
+                                    }
+                                    }
+                                }
+                                }
+                            }
+                            
+                            int randomAddition = (int)(Math.random()*totalFree);
+                            int randomNum = (int)(Math.random()*101);
+                            
+                            if (totalFree != 0 && changes != 0){
+                                if (doubles == 10){
+                                doubleMode = false;
+                                doubles = 0;
+                                }
+                                if (doubleMode){
+                                doubles+=1;
+                                }
+                                
+                                if (fours == 10){
+                                foursOnly = false;
+                                fours = 0;
+                                }
+                                if (foursOnly){
+                                currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 4;
+                                fours+=1;
+                                }
+                                else if (totalFree >= 4){
+                                if (randomNum >= 85 && randomNum <= 92){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 4;
+                                }
+                                else if (randomNum >= 93 && randomNum <= 97){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 1;
+                                }
+                                else if (randomNum >= 98){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 6;
+                                    while (currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] != 0){
+                                    randomAddition = (int)(Math.random()*totalFree);
+                                    }
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 6;
+                                }
+                                else{
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 2;
+                                }
+                                }
+                                else{
+                                if (randomNum >= 85 && randomNum <= 92){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 4;
+                                }
+                                else if (randomNum >= 93 && randomNum <= 97){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 1;
+                                }
+                                else{
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 2;
+                                }
+                                }
+                            }
+                        }
+                        
+                        }
+                        else if (keyCode == LEFT){
+                        warning = "";
+                        int[][] tempGrid = shiftGrid(currentGrid, "left");
+                        int changes = 0;
+                        boolean trigger = true;
+                        
+                        for (int row=0; row<grid; row++){
+                            for (int column=0; column<grid; column++){
+                            if (tempGrid[row][column]!=currentGrid[row][column]){
+                                changes+=1;
+                            }
+                            if (currentGrid[row][column]==0 || tempGrid[row][column]==0){
+                                trigger = false;
+                            }
+                            }
+                        }
+                        
+                        if (trigger && checkPossibleCollisions(currentGrid) == 0){
+                            currentStage = "finishedgame";
+                            setupFinishedGamePage();
+                        }
+                        
+                        if (changes!=0 || !trigger){
+                            lastGrid = currentGrid;
+                            currentGrid = shiftGrid(currentGrid, "left");
+                            
+                            int changes2 = 0;
+                            do {
+                            changes2 = 0;
+                            tempGrid = shiftGrid(currentGrid, "left");
+                            for (int row=0; row<grid; row++){
+                                for (int column=0; column<grid; column++){
+                                if (tempGrid[row][column]!=currentGrid[row][column]){
+                                    changes2+=1;
+                                }
+                                }
+                            }
+                            currentGrid = tempGrid;
+                            } while (changes2 != 0);
+                            
+                            if (changes > 0){
+                            currentMoves += 1;
+                            }
+                            
+                            int[][] freeSpots = new int[grid*grid][2];
+                            int totalFree = 0;
+                            for (int rows = 0; rows < grid; rows++){
+                                for (int columns = 0; columns < grid; columns++){
+                                if (currentGrid[rows][columns] == 0){
+                                    freeSpots[totalFree][0] = rows;
+                                    freeSpots[totalFree][1] = columns;
+                                    totalFree += 1;
+                                }
+                                if (changes>0){
+                                    if (currentGrid[rows][columns]%2!=0){
+                                    if (currentGrid[rows][columns] == 17){
+                                        currentGrid[rows][columns] = 0;
+                                    }
+                                    else{
+                                        currentGrid[rows][columns]+=2;
+                                    }
+                                    }
+                                }
+                                }
+                            }
+                            
+                            int randomAddition = (int)(Math.random()*totalFree);
+                            int randomNum = (int)(Math.random()*101);
+                            
+                            if (totalFree != 0 && changes != 0){
+                                if (doubles == 10){
+                                doubleMode = false;
+                                doubles = 0;
+                                }
+                                if (doubleMode){
+                                doubles+=1;
+                                }
+                                
+                                if (fours == 10){
+                                foursOnly = false;
+                                fours = 0;
+                                }
+                                if (foursOnly){
+                                currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 4;
+                                fours+=1;
+                                }
+                                else if (totalFree >= 4){
+                                if (randomNum >= 85 && randomNum <= 92){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 4;
+                                }
+                                else if (randomNum >= 93 && randomNum <= 97){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 1;
+                                }
+                                else if (randomNum >= 98){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 6;
+                                    while (currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] != 0){
+                                    randomAddition = (int)(Math.random()*totalFree);
+                                    }
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 6;
+                                }
+                                else{
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 2;
+                                }
+                                }
+                                else{
+                                if (randomNum >= 85 && randomNum <= 92){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 4;
+                                }
+                                else if (randomNum >= 93 && randomNum <= 97){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 1;
+                                }
+                                else{
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 2;
+                                }
+                                }
+                            }
+                            }
+                        }
+                        else if (keyCode == RIGHT){
+                        warning = "";
+                        int[][] tempGrid = shiftGrid(currentGrid, "right");
+                        int changes = 0;
+                        boolean trigger = true;
+                        
+                        for (int row=0; row<grid; row++){
+                            for (int column=0; column<grid; column++){
+                            if (tempGrid[row][column]!=currentGrid[row][column]){
+                                changes+=1;
+                            }
+                            if (currentGrid[row][column]==0 || tempGrid[row][column]==0){
+                                trigger = false;
+                            }
+                            }
+                        }
+                        
+                        if (trigger && checkPossibleCollisions(currentGrid) == 0){
+                            currentStage = "finishedgame";
+                            setupFinishedGamePage();
+                        }
+                        
+                        if (changes!=0 || !trigger){
+                            lastGrid = currentGrid;
+                            currentGrid = shiftGrid(currentGrid, "right");
+                            
+                            int changes2 = 0;
+                            do {
+                            changes2 = 0;
+                            tempGrid = shiftGrid(currentGrid, "right");
+                            for (int row=0; row<grid; row++){
+                                for (int column=0; column<grid; column++){
+                                if (tempGrid[row][column]!=currentGrid[row][column]){
+                                    changes2+=1;
+                                }
+                                }
+                            }
+                            currentGrid = tempGrid;
+                            } while (changes2 != 0);
+                            
+                            if (changes > 0){
+                            currentMoves += 1;
+                            }
+                            
+                            int[][] freeSpots = new int[grid*grid][2];
+                            int totalFree = 0;
+                            for (int rows = 0; rows < grid; rows++){
+                                for (int columns = 0; columns < grid; columns++){
+                                if (currentGrid[rows][columns] == 0){
+                                    freeSpots[totalFree][0] = rows;
+                                    freeSpots[totalFree][1] = columns;
+                                    totalFree += 1;
+                                }
+                                if (changes>0){
+                                    if (currentGrid[rows][columns]%2!=0){
+                                    if (currentGrid[rows][columns] == 17){
+                                        currentGrid[rows][columns] = 0;
+                                    }
+                                    else{
+                                        currentGrid[rows][columns]+=2;
+                                    }
+                                    }
+                                }
+                                }
+                            }
+                            
+                            int randomAddition = (int)(Math.random()*totalFree);
+                            int randomNum = (int)(Math.random()*101);
+                            
+                            if (totalFree != 0 && changes != 0){
+                                if (doubles == 10){
+                                doubleMode = false;
+                                doubles = 0;
+                                }
+                                if (doubleMode){
+                                doubles+=1;
+                                }
+                                
+                                if (fours == 10){
+                                foursOnly = false;
+                                fours = 0;
+                                }
+                                if (foursOnly){
+                                currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 4;
+                                fours+=1;
+                                }
+                                else if (totalFree >= 4){
+                                if (randomNum >= 85 && randomNum <= 92){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 4;
+                                }
+                                else if (randomNum >= 93 && randomNum <= 97){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 1;
+                                }
+                                else if (randomNum >= 98){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 6;
+                                    while (currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] != 0){
+                                    randomAddition = (int)(Math.random()*totalFree);
+                                    }
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 6;
+                                }
+                                else{
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 2;
+                                }
+                                }
+                                else{
+                                if (randomNum >= 85 && randomNum <= 92){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 4;
+                                }
+                                else if (randomNum >= 93 && randomNum <= 97){
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 1;
+                                }
+                                else{
+                                    currentGrid[freeSpots[randomAddition][0]][freeSpots[randomAddition][1]] = 2;
+                                }
+                                }
+                            }
+                            }
+                        }
+                    }
+                    else if (currentStage == "finishedgame"){
+                        if (key == ' '){
+                        setupTitlePage();
+                        }
+                    }
+                    
+                    if (key == '1'){
+                        toggleMusic();
+                        musicStatus = "ON";
+                        currentMusic = "basiclofi";
+                        minim = new Minim(this);
+                        player = minim.loadFile("music.mp3");
+                        player.loop();
+                    }
+                    else if (key == '2'){
+                        toggleMusic();
+                        musicStatus = "ON";
+                        currentMusic = "baby";
+                        minim = new Minim(this);
+                        player = minim.loadFile("baby.mp3");
+                        player.loop();
+                    }
+                    else if (key == '3'){
+                        toggleMusic();
+                        musicStatus = "ON";
+                        currentMusic = "espresso";
+                        minim = new Minim(this);
+                        player = minim.loadFile("espresso.mp3");
+                        player.loop();
+                    }
+                    else if (key == '4'){
+                        toggleMusic();
+                        musicStatus = "ON";
+                        currentMusic = "party";
+                        minim = new Minim(this);
+                        player = minim.loadFile("party.mp3");
+                        player.loop();
+                    }
+                    else if (key == '5'){
+                        toggleMusic();
+                        musicStatus = "ON";
+                        currentMusic = "wmyb";
+                        minim = new Minim(this);
+                        player = minim.loadFile("wmyb.mp3");
+                        player.loop();
+                    }
+                    else if (key == '6'){
+                        toggleMusic();
+                        musicStatus = "ON";
+                        currentMusic = "shakeitoff";
+                        minim = new Minim(this);
+                        player = minim.loadFile("shakeitoff.mp3");
+                        player.loop();
+                    }
+                    else if (key == '7'){
+                        toggleMusic();
+                        musicStatus = "ON";
+                        currentMusic = "wonderwall";
+                        minim = new Minim(this);
+                        player = minim.loadFile("wonderwall.mp3");
+                        player.loop();
+                    }
+                    else if (key == '8'){
+                        toggleMusic();
+                        musicStatus = "ON";
+                        currentMusic = "carelesswhisper";
+                        minim = new Minim(this);
+                        player = minim.loadFile("carelesswhisper.mp3");
+                        player.loop();
+                    }
+                    else if (key == '9'){
+                        toggleMusic();
+                        musicStatus = "ON";
+                        currentMusic = "apt";
+                        minim = new Minim(this);
+                        player = minim.loadFile("apt.mp3");
+                        player.loop();
+                    }
+                    else if (key == '0'){
+                        toggleMusic();
+                        musicStatus = "ON";
+                        currentMusic = "fein";
+                        minim = new Minim(this);
+                        player = minim.loadFile("fein.mp3");
+                        player.loop();
+                    }
+                    }</code></pre>
+                                    <a href="processing/culminating5.pde" class="btn btn-portfolio">
+                                        <i class="fas fa-code"></i> Download Code File
+                                    </a>
                                 </div>
                             </div>
                         </div>
