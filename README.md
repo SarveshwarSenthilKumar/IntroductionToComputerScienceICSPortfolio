@@ -1,5 +1,5 @@
 <h1>Sarveshwar Senthil Kumar: Introduction to Computer Science (ICS3U) Notes</h1>
-<text>This website is made to house all my projects and notes for the Grade 11 Introduction to Computer Science course.</text>
+<text>This website is made to house all my projects and notes for the Grade 11 Introduction to Computer Science course. As of February 2026, this may also be used for grade 12.</text>
 <br><br>
 <text>This course is comprised mainly of programming basics using a customized version of Java on a "flexible software sketchbook" named Processing, which is a beginner-friendly, tuned-down version of Java for beginner tasks, as well as easy use in graphics rendering for intensive tasks such as game development. The software can be found at <a href="https://processing.org">https://processing.org</a>.</text>
 
