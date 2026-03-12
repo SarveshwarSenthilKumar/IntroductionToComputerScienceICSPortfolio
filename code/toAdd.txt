@@ -1,4 +1,7 @@
-Lacsapès Triangle
+Lacsap's Triangle
 Selection Sort
 Bubble Sort
+Practice Assignment
 Classes Lab with Bank Account and all
+
+Update UI and incorporate better searching
