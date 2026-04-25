@@ -1,5 +1,5 @@
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class GUI {
     public static void main(String[] args) {
@@ -16,7 +16,8 @@ public class GUI {
         JTextField text = new JTextField(30);
 
         //Set contentPane
-        contents.add(label);
+        contents.ad
+        d(label);
         contents.add(myButton);
         contents.add(text);
 
