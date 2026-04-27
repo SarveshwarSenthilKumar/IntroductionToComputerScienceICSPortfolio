@@ -16,8 +16,7 @@ public class GUI {
         JTextField text = new JTextField(30);
 
         //Set contentPane
-        contents.ad
-        d(label);
+        contents.add(label);
         contents.add(myButton);
         contents.add(text);
 
