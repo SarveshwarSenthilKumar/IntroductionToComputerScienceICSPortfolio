@@ -20,8 +20,8 @@ public class myButton {
         myButton.setPreferredSize (new Dimension (100, 30));
         
         myButton.addActionListener(e -> {
-            System.out.println("Button was clicked!");
-            JOptionPane.showMessageDialog(frame, "Hello World!");
+            String data = text.getText(); // Captures text when button is clicked
+            System.out.println("User entered: " + data);
         });
         
         //Set contentPane contents.add(label);
