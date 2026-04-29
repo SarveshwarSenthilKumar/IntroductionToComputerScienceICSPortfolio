@@ -12,7 +12,7 @@ public class myButton {
     public static void main(String[] args){
         //Create a JFrame object
         JFrame frame = new JFrame("Button");
-        frame.setSize(400,300);
+        frame.setSize(400,500);
         JPanel contents = new JPanel();
         JLabel label = new JLabel("Message");
         JButton myButton = new JButton("Submit");
@@ -21,6 +21,7 @@ public class myButton {
         
         myButton.addActionListener(e -> {
             String data = text.getText(); // Captures text when button is clicked
+            label.setText("You entered: " + data);
             System.out.println("User entered: " + data);
         });
         
@@ -33,7 +34,7 @@ public class myButton {
         // Size and display the frame
         
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE); 
-        frame.setSize(300, 200);
+        frame.setSize(300, 400);
         frame.setLocationRelativeTo(null); // Center on screen
         frame.setVisible(true);
 
