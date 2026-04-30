@@ -32,7 +32,10 @@ public class MenuOrderApp extends JFrame {
 
         // 6. Add components to JFrame
         add(pizzaCheckBox);
-        // Students: Add more checkboxes here
+        add(burgerCheckBox);
+        add(saladCheckBox);
+        add(sodaCheckBox);
+        
         add(showOrderButton);
 
         // 7. Add event handler for button
