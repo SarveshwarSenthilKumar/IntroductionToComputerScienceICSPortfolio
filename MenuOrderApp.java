@@ -35,7 +35,7 @@ public class MenuOrderApp extends JFrame {
         add(burgerCheckBox);
         add(saladCheckBox);
         add(sodaCheckBox);
-        
+
         add(showOrderButton);
 
         // 7. Add event handler for button
@@ -43,9 +43,29 @@ public class MenuOrderApp extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // You should:
+                String selectedItems = "";
+
                 // Check which checkboxes are selected
+                if (pizzaCheckBox.isSelected()) {
+                    System.out.println("Pizza is selected");
+                    selectedItems += "Pizza ";
+                }
+                if (burgerCheckBox.isSelected()) {
+                    System.out.println("Burger is selected");
+                    selectedItems += "Burger ";
+                }
+                if (saladCheckBox.isSelected()) {
+                    System.out.println("Salad is selected");
+                    selectedItems += "Salad ";
+                }
+                if (sodaCheckBox.isSelected()) {
+                    System.out.println("Soda is selected");
+                    selectedItems += "Soda ";
+                }
+
                 // Build a string with selected items
                 // Display result using JLabel (hint: use setText())
+                label.setText("You ordered: " + selectedItems);
             }
         });
     }
