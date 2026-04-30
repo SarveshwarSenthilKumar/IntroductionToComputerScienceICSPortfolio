@@ -22,6 +22,9 @@ public class MenuOrderApp extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new FlowLayout());
 
+        JLabel label = new JLabel("Your order will show up here.");
+        add(label);
+
         // 4. Initialize the checkbox
         pizzaCheckBox = new JCheckBox("Pizza");
         burgerCheckBox = new JCheckBox("Burger");
