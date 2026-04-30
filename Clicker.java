@@ -25,6 +25,7 @@ public class Clicker {
                 else{
                     label.setText("Number of the button clicks : #" + counter);
                 }
+                frame.pack();
             }
         });
         
