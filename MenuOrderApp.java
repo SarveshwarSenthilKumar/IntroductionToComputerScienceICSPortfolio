@@ -24,7 +24,9 @@ public class MenuOrderApp extends JFrame {
 
         // 4. Initialize the checkbox
         pizzaCheckBox = new JCheckBox("Pizza");
-
+        burgerCheckBox = new JCheckBox("Burger");
+        saladCheckBox = new JCheckBox("Salad");
+        sodaCheckBox = new JCheckBox("Soda");
         // 5. Initialize the button
         showOrderButton = new JButton("Show Order");
 
