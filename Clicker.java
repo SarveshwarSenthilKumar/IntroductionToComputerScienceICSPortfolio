@@ -19,7 +19,12 @@ public class Clicker {
             @Override
             public void actionPerformed(ActionEvent e){
                 counter++;
-                label.setText("Number of the button clicks : #" + counter);
+                if (counter >= 10){
+                    label.setText("You over-clicked the button, stop it now!");
+                }
+                else{
+                    label.setText("Number of the button clicks : #" + counter);
+                }
             }
         });
         
