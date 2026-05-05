@@ -86,4 +86,4 @@ public class LoginPageApp extends JFrame {
         LoginPageApp app = new LoginPageApp();
         app.setVisible(true);
     }
-}s
+}
