@@ -1,39 +1,33 @@
-/**
- *Create a program that displays countdown on the screen
- * Hint : use Timer object
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class TimerExample extends JPanel implements ActionListener {
-    private int timerDisplay = 3; // 3 seconds
+public class SimpleTimer extends JPanel implements ActionListener {
+    private int timerDisplay = 3;
     private Timer timer;
     private String countdown;
     private int ballX = 50, ballY = 100;
     private int speedX = 3, speedY = 2;
 
-    public TimerExample() {
-        // Initialize countdown display
+    public SimpleTimer() {
         countdown = String.valueOf(timerDisplay);
         
-        // Create timer that fires every 1 second for countdown
         timer = new Timer(1000, this);
         timer.start();
         
-        // Create a separate timer for ball animation
-        Timer ballTimer = new Timer(20, e -> {
-            ballX += speedX;
-            ballY += speedY;
-            
-            if (ballX >= getWidth() - 50 || ballX <= 0) {
-                speedX *= -1;
+        Timer ballTimer = new Timer(20, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ballX += speedX;
+                ballY += speedY;
+                
+                if (ballX >= getWidth() - 50 || ballX <= 0) {
+                    speedX *= -1;
+                }
+                if (ballY >= getHeight() - 50 || ballY <= 50) {
+                    speedY *= -1;
+                }
+                repaint();
             }
-            if (ballY >= getHeight() - 50 || ballY <= 50) {
-                speedY *= -1;
-            }
-            repaint();
         });
         ballTimer.start();
     }
@@ -55,30 +49,25 @@ public class TimerExample extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        // Set font and color for countdown
         g.setFont(new Font("Arial", Font.BOLD, 24));
         g.setColor(Color.RED);
         
-        // Draw countdown string at top of panel
         FontMetrics fm = g.getFontMetrics();
         int x = (getWidth() - fm.stringWidth(countdown)) / 2;
         int y = 30;
         g.drawString(countdown, x, y);
         
-        // Draw the ball
         g.setColor(Color.BLUE);
         g.fillOval(ballX, ballY, 50, 50);
     }
-    //main method to test our program
+
     public static void main(String[] args) {
-        //Create a JFrame
         JFrame frame = new JFrame("Countdown Timer");
-        TimerExample panel = new TimerExample();
-        //add it to the frame.
+        SimpleTimer panel = new SimpleTimer();
         frame.add(panel);
         frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null); // Center the window
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }
