@@ -6,25 +6,33 @@ public class Ball extends JComponent implements ActionListener{
     private int x = 0; // X position of the image
     private int y = 50; // Y position of the image
     private Image image;
-    private TimerExample timer;
+    private Timer timer;
     private int speedX = 4;
     private int speedY = 5;
 
     public Ball(){
-        image = new ImageIcon("ball.png").getImage();
+        // Try to load the image, fallback to colored circle if not found
+        try {
+            image = new ImageIcon("ball.png").getImage();
+        } catch (Exception e) {
+            image = null; // Will draw circle instead
+        }
         
         // Create a timer that updates the position every 10ms
-        timer = new TimerExample(10, this);
+        timer = new Timer(10, this);
         timer.start();
     } // Paint the image
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, x, y, 100, 100, this);
-        //if image doesn't work, draw a circle to test the program
-        //g.setColor(Color.RED);
-        //g.fillOval(x, y, 100, 100); // Draw a red circle instead of an image
-
+        
+        if (image != null) {
+            g.drawImage(image, x, y, 100, 100, this);
+        } else {
+            // Draw a red circle if image doesn't work
+            g.setColor(Color.RED);
+            g.fillOval(x, y, 100, 100);
+        }
     }
 
     // Update position of image - You must override the following method which will be
